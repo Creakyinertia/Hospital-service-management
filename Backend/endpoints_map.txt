@@ -1,0 +1,21 @@
+modules
+--------------------
+patient
+Doctor
+mangemnet
+payments
+===========================
+
+patients Module:
+	|-----------Endpoints
+			|---------Patient Basicinfo API
+					|--------basic information
+			|---------Patient history API
+					|---------medical,billing,date of admission[optional] medical history,billing history
+			|---------Patient Reports API
+					|---------test reports,doctors/physicians related,surgeries
+			|---------Hospital revenue API
+
+
+             
+
