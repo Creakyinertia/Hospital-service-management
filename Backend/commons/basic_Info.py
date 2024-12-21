@@ -10,9 +10,8 @@ from fastapi import FastAPI, Response, status
 from starlette.responses import JSONResponse
 
 
-
+# Check if details already exists in the database
 def get_current_details(db: Session,user: basic_info_schemas.User):
-    # Check if details already exists in the database
     request_email=user.email
     email_exist = db.query(basic_info_models.User).filter(basic_info_models.User.email == request_email).first()
     if email_exist:
@@ -30,7 +29,7 @@ def get_current_details(db: Session,user: basic_info_schemas.User):
     
 
 
-
+#create Patient details 
 def create_user(db: Session, user: basic_info_schemas.User):
     if get_current_details(db, user):
         return get_current_details(db, user)
@@ -63,7 +62,7 @@ def create_user(db: Session, user: basic_info_schemas.User):
         }
     
 
-
+#get Patient details with username and contact
 def get_patient_records(username:str,contact:str,db: Session):
     request_contact=contact
     request_username=username
@@ -92,5 +91,36 @@ def get_patient_records(username:str,contact:str,db: Session):
                 "errorCode": None,
             }
         )
-        
+
+
+
+
+# Delete patient records
+def remove_patient_records(username: str, contact: str, db: Session):
+    request_contact = contact
+    request_username = username
+    patient_details = db.query(basic_info_models.User).filter(
+        basic_info_models.User.contact_number == request_contact,
+        basic_info_models.User.username == request_username
+    ).first()
     
+    if patient_details:
+        db.delete(patient_details)
+        db.commit()
+        raise HTTPException(
+            status_code=status.HTTP_200_OK,
+            detail={
+                "message": success_message['106'] % request_username,
+                "statusCode": 404,
+                "errorCode": None,
+            }
+        )
+    else:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail={
+                "message": error_message['101'] % request_username,
+                "statusCode": 404,
+                "errorCode": None,
+            }
+        )

@@ -10,14 +10,11 @@ class User(BaseModel):
     dob: date
     contact_number: str = Field(..., min_length=10, max_length=10)
     email: str
-    aadhar_number:str=Field(..., min_length=10, max_length=10)
+    aadhar_number:str=Field(..., min_length=10, max_length=15)
     address: str = Field(..., min_length=5)
     emergency_number:str = Field(..., min_length=10, max_length=10)
-    Nationality:str=Field(..., min_length=10, max_length=10)
+    Nationality:str=Field(..., min_length=5, max_length=10)
     Date_of_admission:date
     
     class Config:
         orm_mode = True
-
-
-
