@@ -10,8 +10,7 @@ class User(Base):
     __tablename__ = 'patient_info'
 
     id = Column(Integer, primary_key=True, index=True)
-    first_name = Column(String, index=True)
-    last_name = Column(String, index=True)
+    username = Column(String, index=True)
     gender = Column(String)
     dob = Column(Date)
     contact_number = Column(String)
