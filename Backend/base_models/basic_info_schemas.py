@@ -15,6 +15,9 @@ class User(BaseModel):
     emergency_number:str = Field(..., min_length=10, max_length=10)
     Nationality:str=Field(..., min_length=10, max_length=10)
     Date_of_admission:date
+    
+    class Config:
+        orm_mode = True
 
 
 
