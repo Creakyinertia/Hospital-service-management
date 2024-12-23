@@ -8,6 +8,10 @@ from sqlalchemy.exc import IntegrityError
 from fastapi import FastAPI, Depends,status,HTTPException
 from fastapi import FastAPI, Response, status
 from starlette.responses import JSONResponse
+from uuid import UUID
+import uuid
+
+
 
 
 # Check if details already exists in the database
@@ -94,7 +98,6 @@ def get_patient_records(username:str,contact:str,db: Session):
 
 
 
-
 # Delete patient records
 def remove_patient_records(username: str, contact: str, db: Session):
     request_contact = contact
@@ -124,3 +127,64 @@ def remove_patient_records(username: str, contact: str, db: Session):
                 "errorCode": None,
             }
         )
+
+
+
+
+def is_valid_uuid(value):
+    try:
+        UUID(value) 
+        return True
+    except ValueError:
+        return False
+
+
+
+# update patient records
+def update_patient_records(id:str,user: basic_info_schemas.User, db: Session):
+    unique_id = id
+    request_username = str(user.first_name)+"_"+ str(user.last_name)
+    if is_valid_uuid(unique_id):
+        # all_ids = [str(id[0]) for id in db.query(basic_info_models.User.id).all()]
+        if str(unique_id) == str(UUID(unique_id)):
+            patient_details = db.query(basic_info_models.User).filter(basic_info_models.User.id == unique_id).first()
+            # patient_details.username = request_username
+            patient_details.gender = user.gender
+            patient_details.dob = user.dob
+            patient_details.contact_number = user.contact_number
+            patient_details.email = user.email
+            patient_details.emergency_number =  user.emergency_number
+            patient_details.address = user.address
+            patient_details.emergency_number = user.emergency_number
+            patient_details.aadhar_number = user.aadhar_number
+            patient_details.Nationality = user.Nationality
+            patient_details.Date_of_admission = user.Date_of_admission
+        
+            db.commit()
+        
+            return {
+                "detail": {
+                "message": success_message['107'] % unique_id,
+                "statusCode": 200,
+                "errorCode": None,
+                }
+            }
+        else:
+            raise HTTPException(
+                    status_code=status.HTTP_404_NOT_FOUND,
+                    detail={
+                        "message": error_message['105'] % unique_id,
+                        "statusCode": 404,
+                        "errorCode": None,
+                    }
+                )
+    else:
+        raise HTTPException(
+                status_code=status.HTTP_404_NOT_FOUND,
+                detail={
+                    "message": error_message['105'] % unique_id,
+                    "statusCode": 404,
+                    "errorCode": None,
+                }
+            )
+    

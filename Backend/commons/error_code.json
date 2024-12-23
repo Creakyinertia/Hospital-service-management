@@ -3,6 +3,7 @@
         "101":"Patient not found for %s",
         "102":"email already exist",
         "103":"aadhar already exist",
-        "104":"emergency number alreday exist"
+        "104":"emergency number alreday exist",
+        "105":"Invalid Patient %s"
     
 }
