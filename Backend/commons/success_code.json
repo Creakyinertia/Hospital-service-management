@@ -1,9 +1,6 @@
 {
-    
-
         "100":"Patient basic information updated successfully",
         "105":"Patient details for %s ",
         "106":"patient record for %s is deleted from database",
         "107":"patient details updated for id %s"
-    
 }
