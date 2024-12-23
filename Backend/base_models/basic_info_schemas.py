@@ -17,4 +17,4 @@ class User(BaseModel):
     Date_of_admission:date
     
     class Config:
-        orm_mode = True
+        from_attributes = True

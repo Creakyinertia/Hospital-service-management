@@ -23,7 +23,15 @@ async def create_patient(username:str,contact:str, db: Session = Depends(get_db)
     return basic_Info.get_patient_records(username =username ,db=db, contact=contact)
 
 
+
 @router.delete("/remove-patient-record-details/",tags=["Patient Records"])
 async def create_patient(username:str,contact:str, db: Session = Depends(get_db)):
     basic_Info.remove_patient_records(username =username ,contact=contact,db=db)
     return basic_Info.remove_patient_records(username =username ,contact=contact,db=db)
+
+
+
+@router.put("/update-patient-record-details/",tags=["Patient Records"])
+async def create_patient(unique_id:str,user: basic_info_schemas.User,db: Session = Depends(get_db)):
+    basic_Info.update_patient_records(id =unique_id, user=user,db=db)
+    return basic_Info.update_patient_records(id =unique_id, user=user,db=db)

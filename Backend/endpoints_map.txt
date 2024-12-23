@@ -2,13 +2,13 @@ modules
 --------------------
 patient
 Doctor
-mangemnet
+management
 payments
 ===========================
 
 patients Module:
 	|-----------Endpoints
-			|---------Patient Basicinfo API
+			|---------Patient BasicInfo API
 					|--------basic information
 			|---------Patient history API
 					|---------medical,billing,date of admission[optional] medical history,billing history
