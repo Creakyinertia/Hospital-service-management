@@ -3,13 +3,15 @@ from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import relationship
 import datetime
 from backend.connections.database import Base
+import uuid
+from sqlalchemy.dialects.postgresql import UUID
 
 Base = declarative_base()
 
 class User(Base):
     __tablename__ = 'patient_info'
 
-    id = Column(Integer, primary_key=True, index=True)
+    id = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4, index=True)
     username = Column(String, index=True)
     gender = Column(String)
     dob = Column(Date)
